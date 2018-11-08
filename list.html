@@ -1,0 +1,93 @@
+<template>
+    <div class="page">
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <a href="#" class="link back">
+                        <i class="icon icon-back"></i>
+                        <span class="ios-only">Back</span>
+                    </a>
+                </div>
+                <div class="title">{{title}}</div>
+                
+            </div>
+        </div>
+
+        <div class="page-content">
+           
+            <div class="block block-strong">
+                <div class="description">{{description}}</div>
+                <div class="list links-list">
+                    Food:
+                    <input type="text" id="barcode">
+                    <form>
+                    <button @click="checkAPI">check</button>
+                </form>
+                   
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+    {{#if loaded}}
+        <h1>{{title}}</h1>
+    {{/if}}
+</template>
+
+
+<script>
+    // script must return component object
+//     return {
+//         data: function () {
+//             return {}
+//         }
+
+//     }
+// }
+
+return {
+    data: function () {
+      return {
+        title: '',
+        description:'',
+        loaded:false
+      }
+    },
+    methods: {
+      checkAPI: function (e) {
+          var self=this;
+          e.preventDefault()
+          var code=$$('barcode').val()
+          var url="https://fr.openfoodfacts.org/api/v0/produit/3029330003533.json"
+
+          app.request.get(url,function(json){
+              json=JSON.parse(json)
+              self.$setState({
+                  title:json.product.product_name_fr,
+                  description:json.product.categories_hierarchy
+              })
+          })
+        console.log('clicked');
+        console.log($$('#barcode').val());
+      },
+    },
+    on: {
+      pageInit: function () {
+        // do something on page init
+      },
+      pageAfterOut: function () {
+        // page has left the view
+      },
+    }
+  }
+}
+
+    // var $$ = Dom7;
+    // 
+</script>

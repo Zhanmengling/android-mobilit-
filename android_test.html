@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Expo1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src='js/framework7.min.js'></script>
+        <link rel='stylesheet' type='text/css' href='css/framework7.min.css'>
+        <link rel='stylesheet' type='text/css' href='css/test.css'>
+
+    </head>
+<body>
+
+<h1 class='title'>My First Heading</h1>
+
+<p class='para'>My first paragraph1.<span id='setme'>Hello World</span></p>
+<p class='para'>My first paragraph2.<span id='toggleme'>Hello World</span></p>
+<button class="bluetitle" id="set">change html</button>
+<button class='bluetitle' id='toggle'>toggle</button>
+<button class='bluetitle' id='stop'>stop</button>
+
+<script>
+    timer=null;
+    $('button#set').on('click',function(){
+        console.log("click!")
+        $('span#setme').html('JS');
+    })
+    $('button#toggle').on('click',function(){
+        $('span#toggleme').toggle();
+    })
+    $('.para').on('click',function(){
+        $(this).toggleClass('active');
+    })
+    timer=setInterval(function(){
+        $(".para").toggleClass("active")},1000);
+    
+    
+
+    $('button#stop').on('click',function(){
+       clearInterval(timer)
+    })
+   
+
+</script>
+</body>
+</html>
